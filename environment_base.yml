@@ -3,6 +3,7 @@ channels:
   - defaults
 dependencies:
   - pandas
+  - sqlalchemy
   - pip:
     - picklecache
 
