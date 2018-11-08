@@ -26,6 +26,7 @@ dependencies:
   - readline=7.0=h7b6447c_5
   - setuptools=40.5.0=py37_0
   - six=1.11.0=py37_1
+  - sqlalchemy=1.2.13=py37h7b6447c_0
   - sqlite=3.25.2=h7b6447c_0
   - tk=8.6.8=hbc83047_0
   - wheel=0.32.2=py37_0
