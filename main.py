@@ -18,7 +18,7 @@ def generate_date_table():
 
 
 def generate_fundnav_table():
-    rnds = np.random.rand(DATA_SIZE, 4)
+    rnds = np.random.rand(DATA_SIZE, 4) + 1
     df = pd.DataFrame(rnds, columns=['total_nav', 'navps', 'div_rate', 'reinv_price'])
     df['trade_date'] = generate_date_series()
     return df
@@ -32,7 +32,7 @@ df = generate_fundnav_table()
 df = df.sort_values('trade_date', axis=0)
 
 df['prev_reinv_price'] = df['reinv_price'].shift(1)
-df['daily_return'] = (df['reinv_price'] + df['div_rate']) / df['prev_reinv_price']
+df['daily_return'] = df['navps'] / df['prev_reinv_price']
 df['log'] = np.log(df['daily_return'])
 df['log_cum'] = df['log'].cumsum()
 
@@ -45,6 +45,8 @@ joinee = df[['trade_date', 'log_cum']].set_index('trade_date')
 for n in range(1, 11):
     merged = merged.join(joinee, on=f'{n}_year', how='left', rsuffix=f'_{n}_year')
 
-# merged.to_csv('merged.csv')
+for n in range(1, 11):
+    merged[f'return_{n}_year'] = np.exp(merged['log_cum'] - merged[f'log_cum_{n}_year'])
 
+merged.to_csv('merged.csv')
 
