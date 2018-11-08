@@ -1,0 +1,8 @@
+name: numerical_analysis
+channels:
+  - defaults
+dependencies:
+  - pandas
+  - pip:
+    - picklecache
+
